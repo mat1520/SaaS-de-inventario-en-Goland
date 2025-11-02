@@ -1,0 +1,31 @@
+# Ignorar la base de datos SQLite
+*.db
+*.db-journal
+
+# Ignorar binarios compilados
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+inventory-system
+
+# Ignorar archivos de test
+*.test
+
+# Ignorar archivos de coverage
+*.out
+
+# Ignorar dependencias
+vendor/
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+
+*~
+
+.env
+.env.local
