@@ -39,7 +39,6 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		// Guardar el userID en el contexto para usarlo en los handlers
 		c.Set("userID", claims.UserID)
 		c.Set("email", claims.Email)
 
