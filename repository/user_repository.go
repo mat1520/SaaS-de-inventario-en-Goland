@@ -9,7 +9,6 @@ import (
 	"github.com/mat/inventory-system/models"
 )
 
-// UserRepository define la interfaz para operaciones de usuarios
 type UserRepository interface {
 	Create(user *models.User) error
 	GetByID(id int) (*models.User, error)
@@ -18,17 +17,14 @@ type UserRepository interface {
 	Delete(id int) error
 }
 
-// userRepository implementa UserRepository usando SQLite
 type userRepository struct {
 	db *sql.DB
 }
 
-// NewUserRepository crea una nueva instancia de UserRepository
 func NewUserRepository(db *sql.DB) UserRepository {
 	return &userRepository{db: db}
 }
 
-// Create inserta un nuevo usuario en la base de datos
 func (r *userRepository) Create(user *models.User) error {
 	query := `
 		INSERT INTO users (name, email, password, created_at, updated_at)
@@ -56,7 +52,6 @@ func (r *userRepository) Create(user *models.User) error {
 	return nil
 }
 
-// GetByID obtiene un usuario por su ID
 func (r *userRepository) GetByID(id int) (*models.User, error) {
 	query := `
 		SELECT id, name, email, password, created_at, updated_at
@@ -84,7 +79,6 @@ func (r *userRepository) GetByID(id int) (*models.User, error) {
 	return user, nil
 }
 
-// GetByEmail obtiene un usuario por su email
 func (r *userRepository) GetByEmail(email string) (*models.User, error) {
 	query := `
 		SELECT id, name, email, password, created_at, updated_at
@@ -112,7 +106,6 @@ func (r *userRepository) GetByEmail(email string) (*models.User, error) {
 	return user, nil
 }
 
-// Update actualiza los datos de un usuario
 func (r *userRepository) Update(user *models.User) error {
 	query := `
 		UPDATE users
@@ -142,7 +135,6 @@ func (r *userRepository) Update(user *models.User) error {
 	return nil
 }
 
-// Delete elimina un usuario por su ID
 func (r *userRepository) Delete(id int) error {
 	query := `DELETE FROM users WHERE id = ?`
 

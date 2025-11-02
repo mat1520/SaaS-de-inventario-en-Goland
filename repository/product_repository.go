@@ -9,7 +9,6 @@ import (
 	"github.com/mat/inventory-system/models"
 )
 
-// ProductRepository define la interfaz para operaciones de productos
 type ProductRepository interface {
 	Create(product *models.Product) error
 	GetAll(userID int) ([]*models.Product, error)
@@ -18,17 +17,14 @@ type ProductRepository interface {
 	Delete(id, userID int) error
 }
 
-// productRepository implementa ProductRepository usando SQLite
 type productRepository struct {
 	db *sql.DB
 }
 
-// NewProductRepository crea una nueva instancia de ProductRepository
 func NewProductRepository(db *sql.DB) ProductRepository {
 	return &productRepository{db: db}
 }
 
-// Create inserta un nuevo producto en la base de datos
 func (r *productRepository) Create(product *models.Product) error {
 	query := `
 		INSERT INTO products (name, description, price, stock, user_id, created_at, updated_at)
@@ -60,7 +56,6 @@ func (r *productRepository) Create(product *models.Product) error {
 	return nil
 }
 
-// GetAll obtiene todos los productos de un usuario
 func (r *productRepository) GetAll(userID int) ([]*models.Product, error) {
 	query := `
 		SELECT id, name, description, price, stock, user_id, created_at, updated_at
@@ -101,7 +96,6 @@ func (r *productRepository) GetAll(userID int) ([]*models.Product, error) {
 	return products, nil
 }
 
-// GetByID obtiene un producto por su ID y verifica que pertenezca al usuario
 func (r *productRepository) GetByID(id, userID int) (*models.Product, error) {
 	query := `
 		SELECT id, name, description, price, stock, user_id, created_at, updated_at
@@ -131,7 +125,6 @@ func (r *productRepository) GetByID(id, userID int) (*models.Product, error) {
 	return product, nil
 }
 
-// Update actualiza los datos de un producto
 func (r *productRepository) Update(product *models.Product) error {
 	query := `
 		UPDATE products
@@ -166,7 +159,6 @@ func (r *productRepository) Update(product *models.Product) error {
 	return nil
 }
 
-// Delete elimina un producto por su ID verificando que pertenezca al usuario
 func (r *productRepository) Delete(id, userID int) error {
 	query := `DELETE FROM products WHERE id = ? AND user_id = ?`
 
