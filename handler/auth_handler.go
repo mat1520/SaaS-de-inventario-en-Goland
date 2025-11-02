@@ -9,20 +9,16 @@ import (
 	"github.com/mat/inventory-system/service"
 )
 
-// AuthHandler maneja las peticiones de autenticación
 type AuthHandler struct {
 	userService service.UserService
 }
 
-// NewAuthHandler crea una nueva instancia de AuthHandler
 func NewAuthHandler(userService service.UserService) *AuthHandler {
 	return &AuthHandler{
 		userService: userService,
 	}
 }
 
-// Register maneja el registro de nuevos usuarios
-// POST /api/v1/register
 func (h *AuthHandler) Register(c *gin.Context) {
 	var req models.RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -47,8 +43,6 @@ func (h *AuthHandler) Register(c *gin.Context) {
 	})
 }
 
-// Login maneja el login de usuarios
-// POST /api/v1/login
 func (h *AuthHandler) Login(c *gin.Context) {
 	var req models.LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

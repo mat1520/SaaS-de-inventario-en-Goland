@@ -90,7 +90,6 @@ func (s *userService) UpdateProfile(userID int, req *models.UpdateProfileRequest
 		return nil, err
 	}
 
-	// Actualizar solo los campos proporcionados
 	if req.Name != "" {
 		user.Name = req.Name
 	}
@@ -98,12 +97,10 @@ func (s *userService) UpdateProfile(userID int, req *models.UpdateProfileRequest
 		user.Email = req.Email
 	}
 
-	// Guardar cambios
 	if err := s.userRepo.Update(user); err != nil {
 		return nil, err
 	}
 
-	// No devolver la contraseña
 	user.Password = ""
 	return user, nil
 }

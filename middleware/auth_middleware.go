@@ -8,10 +8,8 @@ import (
 	"github.com/mat/inventory-system/auth"
 )
 
-// AuthMiddleware verifica el token JWT en las peticiones
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		// Obtener el token del header Authorization
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
 			c.JSON(http.StatusUnauthorized, gin.H{
@@ -21,7 +19,6 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		// El token debe venir en formato: "Bearer <token>"
 		parts := strings.Split(authHeader, " ")
 		if len(parts) != 2 || parts[0] != "Bearer" {
 			c.JSON(http.StatusUnauthorized, gin.H{
@@ -33,7 +30,6 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		tokenString := parts[1]
 
-		// Validar el token
 		claims, err := auth.ValidateToken(tokenString)
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{

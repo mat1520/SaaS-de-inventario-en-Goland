@@ -5,7 +5,6 @@ import (
 	"github.com/mat/inventory-system/repository"
 )
 
-// ProductService define la interfaz para la lógica de negocio de productos
 type ProductService interface {
 	Create(userID int, req *models.CreateProductRequest) (*models.Product, error)
 	GetAll(userID int) ([]*models.Product, error)
@@ -14,19 +13,16 @@ type ProductService interface {
 	Delete(id, userID int) error
 }
 
-// productService implementa ProductService
 type productService struct {
 	productRepo repository.ProductRepository
 }
 
-// NewProductService crea una nueva instancia de ProductService
 func NewProductService(productRepo repository.ProductRepository) ProductService {
 	return &productService{
 		productRepo: productRepo,
 	}
 }
 
-// Create crea un nuevo producto
 func (s *productService) Create(userID int, req *models.CreateProductRequest) (*models.Product, error) {
 	product := &models.Product{
 		Name:        req.Name,
@@ -43,7 +39,6 @@ func (s *productService) Create(userID int, req *models.CreateProductRequest) (*
 	return product, nil
 }
 
-// GetAll obtiene todos los productos de un usuario
 func (s *productService) GetAll(userID int) ([]*models.Product, error) {
 	products, err := s.productRepo.GetAll(userID)
 	if err != nil {
@@ -53,7 +48,6 @@ func (s *productService) GetAll(userID int) ([]*models.Product, error) {
 	return products, nil
 }
 
-// GetByID obtiene un producto por su ID
 func (s *productService) GetByID(id, userID int) (*models.Product, error) {
 	product, err := s.productRepo.GetByID(id, userID)
 	if err != nil {
@@ -63,15 +57,12 @@ func (s *productService) GetByID(id, userID int) (*models.Product, error) {
 	return product, nil
 }
 
-// Update actualiza un producto existente
 func (s *productService) Update(id, userID int, req *models.UpdateProductRequest) (*models.Product, error) {
-	// Obtener el producto actual
 	product, err := s.productRepo.GetByID(id, userID)
 	if err != nil {
 		return nil, err
 	}
 
-	// Actualizar solo los campos proporcionados
 	if req.Name != "" {
 		product.Name = req.Name
 	}
@@ -85,7 +76,6 @@ func (s *productService) Update(id, userID int, req *models.UpdateProductRequest
 		product.Stock = req.Stock
 	}
 
-	// Guardar cambios
 	if err := s.productRepo.Update(product); err != nil {
 		return nil, err
 	}
@@ -93,7 +83,6 @@ func (s *productService) Update(id, userID int, req *models.UpdateProductRequest
 	return product, nil
 }
 
-// Delete elimina un producto
 func (s *productService) Delete(id, userID int) error {
 	if err := s.productRepo.Delete(id, userID); err != nil {
 		return err

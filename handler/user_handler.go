@@ -9,20 +9,16 @@ import (
 	"github.com/mat/inventory-system/service"
 )
 
-// UserHandler maneja las peticiones relacionadas con el perfil de usuario
 type UserHandler struct {
 	userService service.UserService
 }
 
-// NewUserHandler crea una nueva instancia de UserHandler
 func NewUserHandler(userService service.UserService) *UserHandler {
 	return &UserHandler{
 		userService: userService,
 	}
 }
 
-// GetProfile obtiene el perfil del usuario autenticado
-// GET /api/v1/profile
 func (h *UserHandler) GetProfile(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {
@@ -44,8 +40,6 @@ func (h *UserHandler) GetProfile(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-// UpdateProfile actualiza el perfil del usuario autenticado
-// PUT /api/v1/profile
 func (h *UserHandler) UpdateProfile(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {

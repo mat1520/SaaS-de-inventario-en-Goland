@@ -10,20 +10,16 @@ import (
 	"github.com/mat/inventory-system/service"
 )
 
-// ProductHandler maneja las peticiones relacionadas con productos
 type ProductHandler struct {
 	productService service.ProductService
 }
 
-// NewProductHandler crea una nueva instancia de ProductHandler
 func NewProductHandler(productService service.ProductService) *ProductHandler {
 	return &ProductHandler{
 		productService: productService,
 	}
 }
 
-// Create crea un nuevo producto
-// POST /api/v1/products
 func (h *ProductHandler) Create(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {
@@ -56,8 +52,6 @@ func (h *ProductHandler) Create(c *gin.Context) {
 	})
 }
 
-// GetAll obtiene todos los productos del usuario
-// GET /api/v1/products
 func (h *ProductHandler) GetAll(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {
@@ -82,8 +76,6 @@ func (h *ProductHandler) GetAll(c *gin.Context) {
 	})
 }
 
-// GetByID obtiene un producto por su ID
-// GET /api/v1/products/:id
 func (h *ProductHandler) GetByID(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {
@@ -113,8 +105,6 @@ func (h *ProductHandler) GetByID(c *gin.Context) {
 	c.JSON(http.StatusOK, product)
 }
 
-// Update actualiza un producto
-// PUT /api/v1/products/:id
 func (h *ProductHandler) Update(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {
@@ -155,8 +145,6 @@ func (h *ProductHandler) Update(c *gin.Context) {
 	})
 }
 
-// Delete elimina un producto
-// DELETE /api/v1/products/:id
 func (h *ProductHandler) Delete(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {
