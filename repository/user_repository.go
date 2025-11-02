@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/mat/inventory-system/errors"
-	"github.com/mat/inventory-system/models"
+	"github.com/mat1520/POO-PROJECT/errors"
+	"github.com/mat1520/POO-PROJECT/models"
 )
 
 type UserRepository interface {

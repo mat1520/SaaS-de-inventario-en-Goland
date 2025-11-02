@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/mat/inventory-system/models"
-	"github.com/mat/inventory-system/repository"
+	"github.com/mat1520/POO-PROJECT/models"
+	"github.com/mat1520/POO-PROJECT/repository"
 )
 
 type ProductService interface {

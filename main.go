@@ -4,11 +4,11 @@ import (
 	"log"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mat/inventory-system/database"
-	"github.com/mat/inventory-system/handler"
-	"github.com/mat/inventory-system/middleware"
-	"github.com/mat/inventory-system/repository"
-	"github.com/mat/inventory-system/service"
+	"github.com/mat1520/POO-PROJECT/database"
+	"github.com/mat1520/POO-PROJECT/handler"
+	"github.com/mat1520/POO-PROJECT/middleware"
+	"github.com/mat1520/POO-PROJECT/repository"
+	"github.com/mat1520/POO-PROJECT/service"
 )
 
 func main() {

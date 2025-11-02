@@ -1,10 +1,10 @@
 package service
 
 import (
-	"github.com/mat/inventory-system/auth"
-	"github.com/mat/inventory-system/errors"
-	"github.com/mat/inventory-system/models"
-	"github.com/mat/inventory-system/repository"
+	"github.com/mat1520/POO-PROJECT/auth"
+	"github.com/mat1520/POO-PROJECT/errors"
+	"github.com/mat1520/POO-PROJECT/models"
+	"github.com/mat1520/POO-PROJECT/repository"
 )
 
 type UserService interface {

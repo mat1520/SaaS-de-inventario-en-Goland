@@ -1,4 +1,4 @@
-module github.com/mat/inventory-system
+module github.com/mat1520/POO-PROJECT
 
 go 1.21
 

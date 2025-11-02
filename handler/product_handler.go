@@ -5,9 +5,9 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mat/inventory-system/errors"
-	"github.com/mat/inventory-system/models"
-	"github.com/mat/inventory-system/service"
+	"github.com/mat1520/POO-PROJECT/errors"
+	"github.com/mat1520/POO-PROJECT/models"
+	"github.com/mat1520/POO-PROJECT/service"
 )
 
 type ProductHandler struct {
