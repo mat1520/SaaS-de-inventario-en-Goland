@@ -5,7 +5,6 @@ import (
 	"net/http"
 )
 
-// Errores personalizados del sistema
 var (
 	ErrNotFound           = errors.New("resource not found")
 	ErrInvalidCredentials = errors.New("invalid credentials")
@@ -17,14 +16,12 @@ var (
 	ErrForbidden          = errors.New("forbidden")
 )
 
-// AppError representa un error de aplicación con código HTTP
 type AppError struct {
 	Err        error
 	Message    string
 	StatusCode int
 }
 
-// Error implementa la interfaz error
 func (e *AppError) Error() string {
 	if e.Message != "" {
 		return e.Message
@@ -32,7 +29,6 @@ func (e *AppError) Error() string {
 	return e.Err.Error()
 }
 
-// NewAppError crea un nuevo AppError
 func NewAppError(err error, message string, statusCode int) *AppError {
 	return &AppError{
 		Err:        err,
@@ -41,7 +37,6 @@ func NewAppError(err error, message string, statusCode int) *AppError {
 	}
 }
 
-// GetHTTPStatus convierte un error en un código HTTP apropiado
 func GetHTTPStatus(err error) int {
 	switch {
 	case errors.Is(err, ErrNotFound):

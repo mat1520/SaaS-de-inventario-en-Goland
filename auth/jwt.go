@@ -8,7 +8,7 @@ import (
 )
 
 // Clave secreta para firmar los tokens JWT (en producción, usar variable de entorno)
-var jwtSecret = []byte("your-secret-key-change-this-in-production")
+var jwtSecret = []byte("0f901a1a86a69c743631f11a709a3c60dc7ef4a855db1f9d58d061fa026398cc8f3a23a11e5040dbf0a097fc28a98d22")
 
 // Claims personalizado para JWT
 type Claims struct {
