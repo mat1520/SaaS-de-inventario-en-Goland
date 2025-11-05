@@ -7,7 +7,7 @@ http://localhost:8080
 
 ---
 
-## 1️⃣ REGISTRAR UN USUARIO
+## REGISTRAR UN USUARIO
 
 ### Request
 - **Método:** `POST`
@@ -41,7 +41,7 @@ http://localhost:8080
 
 ---
 
-## 2️⃣ LOGIN (OBTENER TOKEN JWT)
+## LOGIN (OBTENER TOKEN JWT)
 
 ### Request
 - **Método:** `POST`
@@ -71,12 +71,9 @@ http://localhost:8080
   }
 }
 ```
+copia el `token` de la respuesta — lo necesitarás para todas las peticiones protegidas.
 
-**⚠️ IMPORTANTE: Copia el `token` de la respuesta, lo necesitarás para todas las siguientes peticiones.**
-
----
-
-## 3️⃣ VER PERFIL (RUTA PROTEGIDA)
+## VER PERFIL (RUTA PROTEGIDA)
 
 ### Request
 - **Método:** `GET`
@@ -104,7 +101,7 @@ http://localhost:8080
 
 ---
 
-## 4️⃣ ACTUALIZAR PERFIL (RUTA PROTEGIDA)
+## ACTUALIZAR PERFIL (RUTA PROTEGIDA)
 
 ### Request
 - **Método:** `PUT`
@@ -138,7 +135,7 @@ http://localhost:8080
 
 ---
 
-## 5️⃣ CREAR UN PRODUCTO (RUTA PROTEGIDA)
+## CREAR UN PRODUCTO (RUTA PROTEGIDA)
 
 ### Request
 - **Método:** `POST`
@@ -177,7 +174,7 @@ http://localhost:8080
 
 ---
 
-## 6️⃣ LISTAR TODOS LOS PRODUCTOS (RUTA PROTEGIDA)
+## LISTAR TODOS LOS PRODUCTOS (RUTA PROTEGIDA)
 
 ### Request
 - **Método:** `GET`
@@ -218,7 +215,7 @@ http://localhost:8080
 
 ---
 
-## 7️⃣ OBTENER UN PRODUCTO POR ID (RUTA PROTEGIDA)
+## OBTENER UN PRODUCTO POR ID (RUTA PROTEGIDA)
 
 ### Request
 - **Método:** `GET`
@@ -244,7 +241,7 @@ http://localhost:8080
 
 ---
 
-## 8️⃣ ACTUALIZAR UN PRODUCTO (RUTA PROTEGIDA)
+##  ACTUALIZAR UN PRODUCTO (RUTA PROTEGIDA)
 
 ### Request
 - **Método:** `PUT`
@@ -282,7 +279,7 @@ http://localhost:8080
 
 ---
 
-## 9️⃣ ELIMINAR UN PRODUCTO (RUTA PROTEGIDA)
+##  ELIMINAR UN PRODUCTO (RUTA PROTEGIDA)
 
 ### Request
 - **Método:** `DELETE`
@@ -301,7 +298,7 @@ http://localhost:8080
 
 ---
 
-## 🔴 CASOS DE ERROR
+##  CASOS DE ERROR
 
 ### Error: Sin token (401 Unauthorized)
 ```json
@@ -340,7 +337,7 @@ http://localhost:8080
 
 ---
 
-## 📝 PASOS PARA PROBAR EN POSTMAN
+##  PASOS PARA PROBAR EN POSTMAN
 
 1. **Abre Postman** y crea una nueva colección llamada "Inventory System"
 
