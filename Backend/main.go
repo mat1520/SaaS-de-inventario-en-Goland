@@ -12,37 +12,47 @@ import (
 )
 
 func main() {
-	// Inicializar la base de datos
 	db, err := database.InitDB("./inventory.db")
 	if err != nil {
 		log.Fatalf("Failed to initialize database: %v", err)
 	}
 	defer db.Close()
 
-	// Capa de Repositorio (Data Access)
 	userRepo := repository.NewUserRepository(db)
 	productRepo := repository.NewProductRepository(db)
 
-	// Capa de Servicio (Business Logic)
 	userService := service.NewUserService(userRepo)
 	productService := service.NewProductService(productRepo)
 
-	// Capa de Handler (Presentation/API)
 	authHandler := handler.NewAuthHandler(userService)
 	userHandler := handler.NewUserHandler(userService)
 	productHandler := handler.NewProductHandler(productService)
 
-	// Configurar Gin
 	router := gin.Default()
 
-	// Rutas públicas (sin autenticación)
+	// Configurar CORS para permitir solicitudes desde el frontend
+	router.Use(func(c *gin.Context) {
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	})
+
+	// Rutas basicas de la autenticacion
 	v1 := router.Group("/api/v1")
+	auth := v1.Group("/auth")
 	{
-		v1.POST("/register", authHandler.Register)
-		v1.POST("/login", authHandler.Login)
+		auth.POST("/register", authHandler.Register)
+		auth.POST("/login", authHandler.Login)
 	}
 
-	// Rutas protegidas (requieren autenticación JWT)
+	// Rutas protegida=s
 	protected := v1.Group("")
 	protected.Use(middleware.AuthMiddleware())
 	{
