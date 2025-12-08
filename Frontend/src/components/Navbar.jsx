@@ -35,16 +35,16 @@ const Navbar = () => {
                     {user ? (
                         <>
                             <Link to="/dashboard" className="nav-link">Dashboard</Link>
-                            <Link to="/products" className="nav-link">Inventario</Link>
-                            <Link to="/profile" className="nav-link">Perfil</Link>
-                            <button onClick={handleLogout} className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>Salir</button>
+                            <Link to="/products" className="nav-link">Inventory</Link>
+                            <Link to="/settings" className="nav-link">Profile</Link>
+                            <button onClick={handleLogout} className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>Sign Out</button>
                         </>
                     ) : (
                         <>
                             <div className="nav-links-desktop" style={{ display: 'flex', gap: '2rem' }}>
-                                <a href="#" className="nav-link">Features</a>
-                                <a href="#" className="nav-link">Pricing</a>
-                                <a href="#" className="nav-link">Testimonials</a>
+                                <a href="/#features" className="nav-link">Features</a>
+                                <a href="/#pricing" className="nav-link">Pricing</a>
+                                <a href="/#testimonials" className="nav-link">Testimonials</a>
                             </div>
                             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                                 <Link to="/login" className="nav-link">Log In</Link>

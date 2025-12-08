@@ -34,7 +34,7 @@ const LandingPage = () => {
             </section>
 
             {/* Features Section */}
-            <section style={{ padding: '5rem 1rem' }}>
+            <section id="features" style={{ padding: '5rem 1rem' }}>
                 <div className="container">
                     <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
                         <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
@@ -70,8 +70,77 @@ const LandingPage = () => {
                 </div>
             </section>
 
+            {/* Pricing Section */}
+            <section id="pricing" style={{ padding: '5rem 1rem', backgroundColor: 'var(--bg-color)' }}>
+                <div className="container">
+                    <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                        <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
+                            Simple, transparent pricing
+                        </h2>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
+                            Choose the plan that's right for your business.
+                        </p>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                        {/* Starter Plan */}
+                        <div className="card" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            <div>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Starter</h3>
+                                <p style={{ color: 'var(--text-secondary)' }}>Perfect for small businesses</p>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
+                                <span style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>$29</span>
+                                <span style={{ color: 'var(--text-secondary)' }}>/month</span>
+                            </div>
+                            <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)', fontSize: '20px' }}>check</span>
+                                    <span>Up to 1,000 products</span>
+                                </li>
+                                <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)', fontSize: '20px' }}>check</span>
+                                    <span>Basic reporting</span>
+                                </li>
+                                <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)', fontSize: '20px' }}>check</span>
+                                    <span>Email support</span>
+                                </li>
+                            </ul>
+                            <Link to="/register" className="btn btn-primary" style={{ textAlign: 'center', marginTop: 'auto' }}>Get Started</Link>
+                        </div>
+                        {/* Pro Plan */}
+                        <div className="card" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', border: '2px solid var(--primary-color)', position: 'relative' }}>
+                            <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', backgroundColor: 'var(--primary-color)', color: 'white', padding: '0.25rem 1rem', borderRadius: '999px', fontSize: '0.875rem', fontWeight: 'bold' }}>Most Popular</div>
+                            <div>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Pro</h3>
+                                <p style={{ color: 'var(--text-secondary)' }}>For growing companies</p>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
+                                <span style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>$79</span>
+                                <span style={{ color: 'var(--text-secondary)' }}>/month</span>
+                            </div>
+                            <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)', fontSize: '20px' }}>check</span>
+                                    <span>Unlimited products</span>
+                                </li>
+                                <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)', fontSize: '20px' }}>check</span>
+                                    <span>Advanced analytics</span>
+                                </li>
+                                <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)', fontSize: '20px' }}>check</span>
+                                    <span>Priority support</span>
+                                </li>
+                            </ul>
+                            <Link to="/register" className="btn btn-primary" style={{ textAlign: 'center', marginTop: 'auto' }}>Get Started</Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Testimonials Section */}
-            <section style={{ padding: '5rem 1rem' }}>
+            <section id="testimonials" style={{ padding: '5rem 1rem' }}>
                 <div className="container">
                     <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                         <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Trusted by businesses worldwide</h2>
