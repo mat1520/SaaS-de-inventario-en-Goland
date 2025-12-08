@@ -11,6 +11,7 @@ import ProductFormPage from './pages/ProductFormPage';
 import ProfilePage from './pages/ProfilePage';
 import LandingPage from './pages/LandingPage';
 import DashboardPage from './pages/DashboardPage';
+import ReportsPage from './pages/ReportsPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import SupportPage from './pages/SupportPage';
@@ -33,6 +34,13 @@ function App() {
                         <PrivateRoute>
                             <DashboardLayout>
                                 <DashboardPage />
+                            </DashboardLayout>
+                        </PrivateRoute>
+                    } />
+                    <Route path="/reports" element={
+                        <PrivateRoute>
+                            <DashboardLayout>
+                                <ReportsPage />
                             </DashboardLayout>
                         </PrivateRoute>
                     } />
