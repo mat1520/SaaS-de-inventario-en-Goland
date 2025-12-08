@@ -24,7 +24,7 @@ const LandingPage = () => {
                         maxWidth: '900px', 
                         marginTop: '3rem', 
                         aspectRatio: '16/9', 
-                        backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBpfbaT-r8xrMd3vZQAn1JKwNf5yjI1kzZugQZ1p4XlqO8m0L8ox1pBsz3-5QIdnYSTCiD8Fb2mrlVsSlcaJShSWereHdScBaJA9AQ2ZgSevpKubMdgnUfRjOl6S9pJk2ZxTXNtijH-Cd1-mO5Q7DoSbiV9eJNjm3pGkt1ElUWyMzcDHo4SyGfPB31FDnDfQnhIUOIgh2bHcPGuFTrCQxQx_1GPdnYW-nrEsYPy6uOyO3UdlmLr92Kg5-IxJ9RmM8Wd7y5k7PmSYPg")',
+                        backgroundImage: 'url("/assets/Landing.png")',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         borderRadius: '12px',
