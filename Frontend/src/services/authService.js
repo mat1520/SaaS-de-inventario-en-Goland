@@ -23,9 +23,14 @@ const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem('user'));
 };
 
+const updateLocalUser = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
+};
+
 export default {
     register,
     login,
     logout,
     getCurrentUser,
+    updateLocalUser
 };

@@ -3,7 +3,7 @@ import UserService from '../services/userService';
 import { AuthContext } from '../context/AuthContext';
 
 const ProfilePage = () => {
-    const { user } = useContext(AuthContext);
+    const { user, updateUser } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -40,9 +40,33 @@ const ProfilePage = () => {
     const handleSubmit = async () => {
         setMessage({ type: '', text: '' });
         
-        if (formData.newPassword && formData.newPassword !== formData.confirmPassword) {
-            setMessage({ type: 'error', text: 'New passwords do not match.' });
+        // Validation
+        if (!formData.name.trim()) {
+            setMessage({ type: 'error', text: 'Name cannot be empty.' });
             return;
+        }
+        if (/\d/.test(formData.name)) {
+            setMessage({ type: 'error', text: 'Name cannot contain numbers.' });
+            return;
+        }
+        if (!formData.email.trim()) {
+            setMessage({ type: 'error', text: 'Email cannot be empty.' });
+            return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            setMessage({ type: 'error', text: 'Invalid email format.' });
+            return;
+        }
+
+        if (formData.newPassword) {
+            if (formData.newPassword.length < 6) {
+                setMessage({ type: 'error', text: 'Password must be at least 6 characters.' });
+                return;
+            }
+            if (formData.newPassword !== formData.confirmPassword) {
+                setMessage({ type: 'error', text: 'New passwords do not match.' });
+                return;
+            }
         }
 
         setLoading(true);
@@ -57,7 +81,12 @@ const ProfilePage = () => {
                 payload.password = formData.newPassword;
             }
 
-            await UserService.updateProfile(payload);
+            const response = await UserService.updateProfile(payload);
+            
+            if (response.user) {
+                updateUser(response.user);
+            }
+
             setMessage({ type: 'success', text: 'Profile updated successfully.' });
             setFormData(prev => ({ 
                 ...prev, 
