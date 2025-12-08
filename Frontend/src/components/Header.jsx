@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 
 const Header = ({ title, subtitle, children }) => {
     const [showNotifications, setShowNotifications] = useState(false);
-    const [notifications, setNotifications] = useState([
-        { id: 1, text: 'Low stock alert: Wireless Mouse', time: '2 min ago', read: false },
-        { id: 2, text: 'New order received #1234', time: '1 hour ago', read: false },
-        { id: 3, text: 'System update completed', time: '5 hours ago', read: true },
-    ]);
+    const [notifications, setNotifications] = useState([]);
 
     const unreadCount = notifications.filter(n => !n.read).length;
 
