@@ -1,6 +1,9 @@
 package service
 
 import (
+	"log"
+	"time"
+
 	"github.com/mat1520/POO-PROJECT/auth"
 	"github.com/mat1520/POO-PROJECT/errors"
 	"github.com/mat1520/POO-PROJECT/models"
@@ -45,6 +48,12 @@ func (s *userService) Register(req *models.RegisterRequest) (*models.User, error
 	if err := s.userRepo.Create(user); err != nil {
 		return nil, err
 	}
+
+	// Background task: Send welcome email
+	go func(u *models.User) {
+		time.Sleep(500 * time.Millisecond) // Simulate email sending delay
+		log.Printf("[BACKGROUND] Sending welcome email to %s (%s)", u.Name, u.Email)
+	}(user)
 
 	user.Password = ""
 	return user, nil
