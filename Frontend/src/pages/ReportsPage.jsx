@@ -156,63 +156,29 @@ const ReportsPage = () => {
             </style>
 
             {/* Header */}
-            <header style={{ 
-                position: 'sticky', 
-                top: 0, 
-                zIndex: 10, 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'space-between', 
-                padding: '1rem 1.5rem', 
-                borderBottom: '1px solid var(--border-color)', 
-                backgroundColor: 'rgba(255, 255, 255, 0.8)', 
-                backdropFilter: 'blur(4px)'
-            }}>
-                <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-color)' }}>Reports Center</h1>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <button style={{ 
-                        position: 'relative', 
-                        padding: '0.5rem', 
-                        borderRadius: '50%', 
+            <Header title="Reports Center">
+                <button 
+                    onClick={handleExport}
+                    style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        height: '40px', 
+                        padding: '0 1rem', 
+                        backgroundColor: 'var(--primary-color)', 
+                        color: 'white', 
+                        fontSize: '0.875rem', 
+                        fontWeight: 'bold', 
+                        borderRadius: '0.5rem', 
                         border: 'none', 
-                        background: 'transparent', 
-                        cursor: 'pointer' 
-                    }}>
-                        <span className="material-symbols-outlined" style={{ color: 'var(--text-secondary)' }}>notifications</span>
-                        <span style={{ 
-                            position: 'absolute', 
-                            top: '6px', 
-                            right: '6px', 
-                            width: '10px', 
-                            height: '10px', 
-                            borderRadius: '50%', 
-                            backgroundColor: 'var(--danger-color)', 
-                            border: '2px solid var(--card-bg)' 
-                        }}></span>
-                    </button>
-                    <button 
-                        onClick={handleExport}
-                        style={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            justifyContent: 'center', 
-                            height: '40px', 
-                            padding: '0 1rem', 
-                            backgroundColor: 'var(--primary-color)', 
-                            color: 'white', 
-                            fontSize: '0.875rem', 
-                            fontWeight: 'bold', 
-                            borderRadius: '0.5rem', 
-                            border: 'none', 
-                            cursor: 'pointer',
-                            gap: '0.5rem'
-                        }}
-                    >
-                        <span className="material-symbols-outlined">download</span>
-                        <span>Export Reports</span>
-                    </button>
-                </div>
-            </header>
+                        cursor: 'pointer',
+                        gap: '0.5rem'
+                    }}
+                >
+                    <span className="material-symbols-outlined">download</span>
+                    <span>Export Reports</span>
+                </button>
+            </Header>
 
             <main style={{ padding: '1.5rem', flex: 1, overflowY: 'auto' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
