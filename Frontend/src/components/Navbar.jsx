@@ -12,15 +12,16 @@ const Navbar = () => {
     };
 
     return (
-        <nav style={{ backgroundColor: '#34495e', color: '#fff', padding: '1rem 0', marginBottom: '2rem', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+        <nav style={{ backgroundColor: '#2c3e50', color: '#fff', padding: '1rem 0', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-                    <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>POO Project</Link>
+                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '1.8rem' }}>📦</span>
+                    <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>SaaS de Inventario</Link>
                 </div>
                 <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
                     {user ? (
                         <>
-                            <Link to="/products" className="nav-link">Productos</Link>
+                            <Link to="/products" className="nav-link">Dashboard</Link>
                             <Link to="/profile" className="nav-link">Perfil</Link>
                             <button onClick={handleLogout} className="btn btn-danger" style={{ padding: '0.4rem 1rem', fontSize: '0.9rem' }}>Cerrar Sesión</button>
                         </>
@@ -41,6 +42,12 @@ const Navbar = () => {
                 }
                 .nav-link:hover {
                     color: #3498db;
+                }
+                @media (max-width: 768px) {
+                    .container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
                 }
             `}</style>
         </nav>
