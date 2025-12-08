@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import UserService from '../services/userService';
 import { AuthContext } from '../context/AuthContext';
+import Header from '../components/Header';
 
 const ProfilePage = () => {
     const { user, updateUser } = useContext(AuthContext);
