@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductService from '../services/productService';
+import Header from '../components/Header';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const DashboardPage = () => {
@@ -97,10 +98,10 @@ const DashboardPage = () => {
 
     return (
         <div>
-            <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>Dashboard</h1>
-                <p style={{ color: 'var(--text-secondary)' }}>Overview of your inventory status.</p>
-            </div>
+            <Header 
+                title="Dashboard" 
+                subtitle="Overview of your inventory status." 
+            />
             
             {/* Stats Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>

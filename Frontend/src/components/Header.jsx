@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Header = ({ title, children }) => {
+const Header = ({ title, subtitle, children }) => {
     const [showNotifications, setShowNotifications] = useState(false);
     const [notifications, setNotifications] = useState([
         { id: 1, text: 'Low stock alert: Wireless Mouse', time: '2 min ago', read: false },
@@ -32,7 +32,10 @@ const Header = ({ title, children }) => {
             alignItems: 'center', 
             marginBottom: '2rem' 
         }}>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{title}</h1>
+            <div>
+                <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{title}</h1>
+                {subtitle && <p style={{ color: 'var(--text-secondary)', marginTop: '0.25rem' }}>{subtitle}</p>}
+            </div>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 {children}
