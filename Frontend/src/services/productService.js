@@ -2,7 +2,7 @@ import api from './api';
 
 const getAll = async () => {
     const response = await api.get('/products');
-    return response.data;
+    return response.data.products;
 };
 
 const getById = async (id) => {
