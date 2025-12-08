@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductService from '../services/productService';
+import Header from '../components/Header';
 
 const ProductListPage = () => {
     const [products, setProducts] = useState([]);
@@ -38,10 +39,9 @@ const ProductListPage = () => {
 
     return (
         <div className="container">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2>Product List</h2>
+            <Header title="Product List">
                 <Link to="/products/new" className="btn btn-primary">New Product</Link>
-            </div>
+            </Header>
 
             {error && <div className="alert alert-error">{error}</div>}
 
