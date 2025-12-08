@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { ThemeContext } from '../context/ThemeContext';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
-    const { theme, toggleTheme } = useContext(ThemeContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -14,26 +12,44 @@ const Navbar = () => {
     };
 
     return (
-        <nav style={{ backgroundColor: 'var(--card-bg)', color: 'var(--text-color)', padding: '1rem 0', boxShadow: 'var(--shadow)', borderBottom: '1px solid var(--border-color)' }}>
+        <nav style={{ 
+            position: 'sticky', 
+            top: 0, 
+            zIndex: 50, 
+            backgroundColor: 'rgba(246, 247, 248, 0.8)', 
+            backdropFilter: 'blur(4px)', 
+            borderBottom: '1px solid var(--border-color)',
+            padding: '0.75rem 0'
+        }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Link to="/" style={{ color: 'var(--primary-color)', textDecoration: 'none' }}>SaaS Inventario</Link>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ color: 'var(--primary-color)', width: '24px', height: '24px' }}>
+                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <Link to="/" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--text-color)' }}>Inventify</Link>
                 </div>
-                <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-                    <button onClick={toggleTheme} style={{ background: 'none', border: 'none', fontSize: '1.2rem', color: 'var(--text-color)' }}>
-                        {theme === 'light' ? '🌙' : '☀️'}
-                    </button>
+                
+                <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
                     {user ? (
                         <>
                             <Link to="/dashboard" className="nav-link">Dashboard</Link>
                             <Link to="/products" className="nav-link">Inventario</Link>
                             <Link to="/profile" className="nav-link">Perfil</Link>
-                            <button onClick={handleLogout} className="btn btn-danger" style={{ padding: '0.4rem 1rem', fontSize: '0.9rem' }}>Salir</button>
+                            <button onClick={handleLogout} className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>Salir</button>
                         </>
                     ) : (
                         <>
-                            <Link to="/login" className="nav-link">Iniciar Sesión</Link>
-                            <Link to="/register" className="btn btn-success" style={{ padding: '0.4rem 1rem', fontSize: '0.9rem' }}>Registrarse</Link>
+                            <div className="nav-links-desktop" style={{ display: 'flex', gap: '2rem' }}>
+                                <a href="#" className="nav-link">Features</a>
+                                <a href="#" className="nav-link">Pricing</a>
+                                <a href="#" className="nav-link">Testimonials</a>
+                            </div>
+                            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                <Link to="/login" className="nav-link">Log In</Link>
+                                <Link to="/register" className="btn btn-primary">Sign Up</Link>
+                            </div>
                         </>
                     )}
                 </div>
@@ -41,17 +57,16 @@ const Navbar = () => {
             <style>{`
                 .nav-link {
                     color: var(--text-color);
-                    text-decoration: none;
                     font-weight: 500;
+                    font-size: 0.9rem;
                     transition: color 0.2s;
                 }
                 .nav-link:hover {
                     color: var(--primary-color);
                 }
                 @media (max-width: 768px) {
-                    .container {
-                        flex-direction: column;
-                        gap: 1rem;
+                    .nav-links-desktop {
+                        display: none !important;
                     }
                 }
             `}</style>
