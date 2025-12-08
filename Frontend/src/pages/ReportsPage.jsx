@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductService from '../services/productService';
+import Header from '../components/Header';
 import { 
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
     PieChart, Pie, Cell, AreaChart, Area 
