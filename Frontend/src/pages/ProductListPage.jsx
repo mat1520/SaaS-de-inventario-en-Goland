@@ -17,21 +17,21 @@ const ProductListPage = () => {
             const data = await ProductService.getAll();
             setProducts(data || []);
         } catch (error) {
-            console.error("Error cargando productos", error);
-            setError('No se pudieron cargar los productos. Asegúrate de que el backend esté corriendo.');
+            console.error("Error loading products", error);
+            setError('Could not load products. Ensure the backend is running.');
         } finally {
             setLoading(false);
         }
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm('¿Estás seguro de eliminar este producto?')) {
+        if (window.confirm('Are you sure you want to delete this product?')) {
             try {
                 await ProductService.remove(id);
                 loadProducts();
             } catch (error) {
-                console.error("Error eliminando producto", error);
-                alert('Error al eliminar el producto');
+                console.error("Error deleting product", error);
+                alert('Error deleting the product');
             }
         }
     };
@@ -39,24 +39,24 @@ const ProductListPage = () => {
     return (
         <div className="container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2>Lista de Productos</h2>
-                <Link to="/products/new" className="btn btn-primary">Nuevo Producto</Link>
+                <h2>Product List</h2>
+                <Link to="/products/new" className="btn btn-primary">New Product</Link>
             </div>
 
             {error && <div className="alert alert-error">{error}</div>}
 
             {loading ? (
-                <p>Cargando productos...</p>
+                <p>Loading products...</p>
             ) : (
                 <div className="table-container">
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Precio</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
                                 <th>Stock</th>
-                                <th>Acciones</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,14 +68,14 @@ const ProductListPage = () => {
                                         <td>${product.price}</td>
                                         <td>{product.stock}</td>
                                         <td>
-                                            <Link to={`/products/edit/${product.id}`} className="btn btn-primary" style={{ marginRight: '0.5rem', padding: '0.4rem 0.8rem', fontSize: '0.9rem' }}>Editar</Link>
-                                            <button onClick={() => handleDelete(product.id)} className="btn btn-danger" style={{ padding: '0.4rem 0.8rem', fontSize: '0.9rem' }}>Eliminar</button>
+                                            <Link to={`/products/edit/${product.id}`} className="btn btn-primary" style={{ marginRight: '0.5rem', padding: '0.4rem 0.8rem', fontSize: '0.9rem' }}>Edit</Link>
+                                            <button onClick={() => handleDelete(product.id)} className="btn btn-danger" style={{ padding: '0.4rem 0.8rem', fontSize: '0.9rem' }}>Delete</button>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="5" style={{ textAlign: 'center' }}>No hay productos registrados.</td>
+                                    <td colSpan="5" style={{ textAlign: 'center' }}>No products found.</td>
                                 </tr>
                             )}
                         </tbody>

@@ -210,43 +210,15 @@ const ProfilePage = () => {
                         gap: '2rem' 
                     }}>
                         
-                        {/* Profile Picture Section */}
+                        {/* User Settings Section */}
                         <div>
-                            <h2 style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--text-color)' }}>Profile Picture</h2>
+                            <h2 style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--text-color)' }}>User Settings</h2>
                             <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                                 <img 
                                     src={`https://ui-avatars.com/api/?name=${formData.name || 'User'}&background=random&size=128`} 
                                     alt="User avatar" 
                                     style={{ width: '96px', height: '96px', borderRadius: '50%', objectFit: 'cover' }} 
                                 />
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                    <button style={{ 
-                                        height: '40px', 
-                                        padding: '0 1rem', 
-                                        backgroundColor: 'var(--primary-color)', 
-                                        color: 'white', 
-                                        fontSize: '0.875rem', 
-                                        fontWeight: '500', 
-                                        borderRadius: '0.5rem', 
-                                        border: 'none', 
-                                        cursor: 'pointer' 
-                                    }}>
-                                        Upload New Picture
-                                    </button>
-                                    <button style={{ 
-                                        height: '40px', 
-                                        padding: '0 1rem', 
-                                        backgroundColor: 'transparent', 
-                                        color: 'var(--text-secondary)', 
-                                        fontSize: '0.875rem', 
-                                        fontWeight: '500', 
-                                        borderRadius: '0.5rem', 
-                                        border: '1px solid var(--border-color)', 
-                                        cursor: 'pointer' 
-                                    }}>
-                                        Remove
-                                    </button>
-                                </div>
                             </div>
                         </div>
 
