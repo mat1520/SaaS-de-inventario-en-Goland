@@ -6,8 +6,21 @@
   --danger-color: #e74c3c;
   --success-color: #2ecc71;
   --white: #ffffff;
+  --card-bg: #ffffff;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --radius: 8px;
+}
+
+[data-theme='dark'] {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --text-color: #ecf0f1;
+  --border-color: #34495e;
+  --danger-color: #e74c3c;
+  --success-color: #2ecc71;
+  --white: #1a252f; /* Darker background for body */
+  --card-bg: #34495e; /* Lighter background for cards */
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -21,6 +34,7 @@ body {
   background-color: var(--secondary-color);
   color: var(--text-color);
   line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 a {
@@ -41,11 +55,11 @@ button {
 }
 
 .card {
-  background: var(--white);
+  background: var(--card-bg);
   padding: 2rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  transition: transform 0.2s;
+  transition: transform 0.2s, background-color 0.3s;
 }
 
 .card:hover {
