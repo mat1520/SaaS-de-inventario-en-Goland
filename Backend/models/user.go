@@ -28,6 +28,7 @@ type LoginResponse struct {
 }
 
 type UpdateProfileRequest struct {
-	Name  string `json:"name" binding:"omitempty,min=2"`
-	Email string `json:"email" binding:"omitempty,email"`
+	Name     string `json:"name" binding:"omitempty,min=2"`
+	Email    string `json:"email" binding:"omitempty,email"`
+	Password string `json:"password" binding:"omitempty,min=6"`
 }

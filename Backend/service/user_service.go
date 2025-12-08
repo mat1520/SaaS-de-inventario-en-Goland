@@ -96,6 +96,13 @@ func (s *userService) UpdateProfile(userID int, req *models.UpdateProfileRequest
 	if req.Email != "" {
 		user.Email = req.Email
 	}
+	if req.Password != "" {
+		hashedPassword, err := auth.HashPassword(req.Password)
+		if err != nil {
+			return nil, err
+		}
+		user.Password = hashedPassword
+	}
 
 	if err := s.userRepo.Update(user); err != nil {
 		return nil, err

@@ -5,7 +5,8 @@ import { AuthContext } from '../context/AuthContext';
 const ProfilePage = () => {
     const [profile, setProfile] = useState({
         name: '',
-        email: ''
+        email: '',
+        password: ''
     });
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
@@ -18,7 +19,7 @@ const ProfilePage = () => {
     const loadProfile = async () => {
         try {
             const data = await UserService.getProfile();
-            setProfile({ name: data.name, email: data.email });
+            setProfile(prev => ({ ...prev, name: data.name, email: data.email }));
         } catch (error) {
             console.error("Error cargando perfil", error);
             setError('No se pudo cargar la información del perfil.');
@@ -35,8 +36,17 @@ const ProfilePage = () => {
         setMessage('');
         setError('');
         try {
-            await UserService.updateProfile(profile);
+            const payload = {
+                name: profile.name,
+                email: profile.email
+            };
+            if (profile.password) {
+                payload.password = profile.password;
+            }
+
+            await UserService.updateProfile(payload);
             setMessage('Perfil actualizado correctamente');
+            setProfile(prev => ({ ...prev, password: '' }));
         } catch (error) {
             console.error("Error actualizando perfil", error);
             setError('Error al actualizar perfil');
@@ -68,6 +78,17 @@ const ProfilePage = () => {
                             className="form-control"
                             value={profile.email}
                             onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label">Nueva Contraseña (opcional):</label>
+                        <input
+                            type="password"
+                            name="password"
+                            className="form-control"
+                            value={profile.password}
+                            onChange={handleChange}
+                            placeholder="Dejar en blanco para mantener la actual"
                         />
                     </div>
                     <button type="submit" className="btn btn-primary">Actualizar</button>
