@@ -1,9 +1,6 @@
 package service
 
 import (
-	"log"
-	"time"
-
 	"github.com/mat1520/POO-PROJECT/models"
 	"github.com/mat1520/POO-PROJECT/repository"
 )
@@ -38,18 +35,6 @@ func (s *productService) Create(userID int, req *models.CreateProductRequest) (*
 	if err := s.productRepo.Create(product); err != nil {
 		return nil, err
 	}
-
-	// Background task: Simulate sending notification or analytics
-	go func(p *models.Product) {
-		// Simulate some processing time
-		time.Sleep(100 * time.Millisecond)
-
-		log.Printf("[BACKGROUND] New product created: %s (ID: %d)", p.Name, p.ID)
-
-		if p.Stock < 10 {
-			log.Printf("[BACKGROUND] ALERT: Low stock for new product %s! Current stock: %d", p.Name, p.Stock)
-		}
-	}(product)
 
 	return product, nil
 }
@@ -94,13 +79,6 @@ func (s *productService) Update(id, userID int, req *models.UpdateProductRequest
 	if err := s.productRepo.Update(product); err != nil {
 		return nil, err
 	}
-
-	go func(p *models.Product) {
-		log.Printf("[BACKGROUND] Product updated: %s (ID: %d). New Price: %.2f, New Stock: %d", p.Name, p.ID, p.Price, p.Stock)
-		if p.Stock < 10 {
-			log.Printf("[BACKGROUND] ALERT: Low stock after update for %s!", p.Name)
-		}
-	}(product)
 
 	return product, nil
 }
