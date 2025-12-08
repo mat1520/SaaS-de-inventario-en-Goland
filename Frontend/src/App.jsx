@@ -57,7 +57,7 @@ function App() {
                             </DashboardLayout>
                         </PrivateRoute>
                     } />
-                    <Route path="/profile" element={
+                    <Route path="/settings" element={
                         <PrivateRoute>
                             <DashboardLayout>
                                 <ProfilePage />
