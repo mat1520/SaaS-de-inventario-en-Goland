@@ -25,8 +25,8 @@ const ProductFormPage = () => {
             const data = await ProductService.getById(id);
             setProduct(data);
         } catch (error) {
-            console.error("Error cargando producto", error);
-            setError('Error al cargar el producto');
+            console.error("Error loading product", error);
+            setError('Error loading product');
         }
     };
 
@@ -48,19 +48,19 @@ const ProductFormPage = () => {
             }
             navigate('/products');
         } catch (error) {
-            console.error("Error guardando producto", error);
-            setError('Error al guardar el producto. Verifique los datos.');
+            console.error("Error saving product", error);
+            setError('Error saving product. Please check the data.');
         }
     };
 
     return (
         <div className="container" style={{ maxWidth: '600px' }}>
             <div className="card">
-                <h2 style={{ marginBottom: '1.5rem' }}>{isEdit ? 'Editar Producto' : 'Nuevo Producto'}</h2>
+                <h2 style={{ marginBottom: '1.5rem' }}>{isEdit ? 'Edit Product' : 'New Product'}</h2>
                 {error && <div className="alert alert-error">{error}</div>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label className="form-label">Nombre:</label>
+                        <label className="form-label">Name:</label>
                         <input
                             type="text"
                             name="name"
@@ -71,7 +71,7 @@ const ProductFormPage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label className="form-label">Descripción:</label>
+                        <label className="form-label">Description:</label>
                         <textarea
                             name="description"
                             className="form-control"
@@ -82,7 +82,7 @@ const ProductFormPage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label className="form-label">Precio:</label>
+                        <label className="form-label">Price:</label>
                         <input
                             type="number"
                             name="price"
@@ -107,8 +107,8 @@ const ProductFormPage = () => {
                         />
                     </div>
                     <div style={{ display: 'flex', gap: '1rem' }}>
-                        <button type="submit" className="btn btn-primary">Guardar</button>
-                        <button type="button" className="btn" style={{ backgroundColor: '#ccc' }} onClick={() => navigate('/products')}>Cancelar</button>
+                        <button type="submit" className="btn btn-primary">Save</button>
+                        <button type="button" className="btn" style={{ backgroundColor: '#ccc' }} onClick={() => navigate('/products')}>Cancel</button>
                     </div>
                 </form>
             </div>
