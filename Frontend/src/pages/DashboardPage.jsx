@@ -73,16 +73,16 @@ const DashboardPage = () => {
             {/* Stats Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
                 <div className="card" style={{ borderLeft: '5px solid #4a90e2' }}>
-                    <h3 style={{ color: '#7f8c8d', fontSize: '1rem' }}>Total Productos</h3>
-                    <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#2c3e50' }}>{stats.totalProducts}</p>
+                    <h3 style={{ color: 'var(--text-color)', fontSize: '1rem', opacity: 0.7 }}>Total Productos</h3>
+                    <p style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{stats.totalProducts}</p>
                 </div>
                 <div className="card" style={{ borderLeft: '5px solid #2ecc71' }}>
-                    <h3 style={{ color: '#7f8c8d', fontSize: '1rem' }}>Valor del Inventario</h3>
-                    <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#2c3e50' }}>${stats.totalValue.toLocaleString()}</p>
+                    <h3 style={{ color: 'var(--text-color)', fontSize: '1rem', opacity: 0.7 }}>Valor del Inventario</h3>
+                    <p style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--text-color)' }}>${stats.totalValue.toLocaleString()}</p>
                 </div>
                 <div className="card" style={{ borderLeft: '5px solid #e74c3c' }}>
-                    <h3 style={{ color: '#7f8c8d', fontSize: '1rem' }}>Stock Bajo Alert</h3>
-                    <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#2c3e50' }}>{stats.lowStock}</p>
+                    <h3 style={{ color: 'var(--text-color)', fontSize: '1rem', opacity: 0.7 }}>Stock Bajo Alert</h3>
+                    <p style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{stats.lowStock}</p>
                 </div>
             </div>
 

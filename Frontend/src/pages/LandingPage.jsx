@@ -28,31 +28,31 @@ const LandingPage = () => {
             {/* Features Section */}
             <section className="container" style={{ padding: '6rem 2rem' }}>
                 <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-                    <h2 style={{ fontSize: '2.5rem', color: '#2c3e50', marginBottom: '1rem' }}>Todo lo que necesitas</h2>
-                    <p style={{ color: '#7f8c8d', fontSize: '1.1rem' }}>Herramientas potentes para hacer crecer tu negocio.</p>
+                    <h2 style={{ fontSize: '2.5rem', color: 'var(--text-color)', marginBottom: '1rem' }}>Todo lo que necesitas</h2>
+                    <p style={{ color: 'var(--text-color)', fontSize: '1.1rem', opacity: 0.7 }}>Herramientas potentes para hacer crecer tu negocio.</p>
                 </div>
                 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem' }}>
                     <div className="card" style={{ padding: '2.5rem', borderTop: '4px solid #4a90e2' }}>
-                        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#2c3e50' }}>Dashboard Intuitivo</h3>
-                        <p style={{ color: '#7f8c8d', lineHeight: '1.6' }}>Visualiza el rendimiento de tu inventario con gráficos claros y métricas en tiempo real.</p>
+                        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--text-color)' }}>Dashboard Intuitivo</h3>
+                        <p style={{ color: 'var(--text-color)', lineHeight: '1.6', opacity: 0.7 }}>Visualiza el rendimiento de tu inventario con gráficos claros y métricas en tiempo real.</p>
                     </div>
                     <div className="card" style={{ padding: '2.5rem', borderTop: '4px solid #2ecc71' }}>
-                        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#2c3e50' }}>Control de Stock</h3>
-                        <p style={{ color: '#7f8c8d', lineHeight: '1.6' }}>Mantén tu inventario actualizado, recibe alertas de stock bajo y evita pérdidas.</p>
+                        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--text-color)' }}>Control de Stock</h3>
+                        <p style={{ color: 'var(--text-color)', lineHeight: '1.6', opacity: 0.7 }}>Mantén tu inventario actualizado, recibe alertas de stock bajo y evita pérdidas.</p>
                     </div>
                     <div className="card" style={{ padding: '2.5rem', borderTop: '4px solid #e74c3c' }}>
-                        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#2c3e50' }}>Seguridad Enterprise</h3>
-                        <p style={{ color: '#7f8c8d', lineHeight: '1.6' }}>Tus datos están encriptados y seguros. Nos tomamos la privacidad muy en serio.</p>
+                        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--text-color)' }}>Seguridad Enterprise</h3>
+                        <p style={{ color: 'var(--text-color)', lineHeight: '1.6', opacity: 0.7 }}>Tus datos están encriptados y seguros. Nos tomamos la privacidad muy en serio.</p>
                     </div>
                 </div>
             </section>
 
             {/* CTA Section */}
-            <section style={{ backgroundColor: '#f8f9fa', padding: '6rem 2rem', textAlign: 'center' }}>
+            <section style={{ backgroundColor: 'var(--secondary-color)', padding: '6rem 2rem', textAlign: 'center' }}>
                 <div className="container">
-                    <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: '#2c3e50' }}>¿Listo para empezar?</h2>
-                    <p style={{ fontSize: '1.2rem', color: '#7f8c8d', marginBottom: '2.5rem' }}>Únete a miles de empresas que ya confían en nosotros.</p>
+                    <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-color)' }}>¿Listo para empezar?</h2>
+                    <p style={{ fontSize: '1.2rem', color: 'var(--text-color)', marginBottom: '2.5rem', opacity: 0.7 }}>Únete a miles de empresas que ya confían en nosotros.</p>
                     <Link to="/register" className="btn btn-primary" style={{ padding: '1rem 3rem', fontSize: '1.2rem' }}>Crear Cuenta Gratis</Link>
                 </div>
             </section>
