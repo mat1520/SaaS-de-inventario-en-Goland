@@ -6,8 +6,12 @@ import {
 } from 'recharts';
 
 const ReportsPage = () => {
-    const [products, setProducts] = useState([]);
+    const [allProducts, setAllProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [dateRange, setDateRange] = useState(30); // 30 or 15
+    const [chartView, setChartView] = useState('daily'); // 'daily' or 'weekly'
+
     const [metrics, setMetrics] = useState({
         totalValue: 0,
         avgPrice: 0,
@@ -22,13 +26,24 @@ const ReportsPage = () => {
         loadData();
     }, []);
 
+    useEffect(() => {
+        if (allProducts.length > 0) {
+            applyFilters();
+        }
+    }, [dateRange, allProducts]);
+
+    useEffect(() => {
+        if (filteredProducts.length > 0 || (allProducts.length > 0 && filteredProducts.length === 0)) {
+             generateChartsData(filteredProducts);
+        }
+    }, [chartView, filteredProducts]);
+
     const loadData = async () => {
         try {
             const data = await ProductService.getAll();
             const productList = data || [];
-            setProducts(productList);
-            calculateMetrics(productList);
-            generateChartsData(productList);
+            setAllProducts(productList);
+            // Initial filter application will happen via useEffect
         } catch (error) {
             console.error("Error loading reports data", error);
         } finally {
@@ -36,10 +51,20 @@ const ReportsPage = () => {
         }
     };
 
+    const applyFilters = () => {
+        const now = new Date();
+        const pastDate = new Date();
+        pastDate.setDate(now.getDate() - dateRange);
+
+        const filtered = allProducts.filter(p => new Date(p.created_at) >= pastDate);
+        setFilteredProducts(filtered);
+        calculateMetrics(filtered);
+    };
+
     const calculateMetrics = (data) => {
         const totalValue = data.reduce((acc, curr) => acc + (curr.price * curr.stock), 0);
         const totalItems = data.reduce((acc, curr) => acc + curr.stock, 0);
-        const avgPrice = data.length > 0 ? totalValue / totalItems : 0; // Weighted average price
+        const avgPrice = data.length > 0 ? totalValue / totalItems : 0;
         const lowStockCount = data.filter(p => p.stock < 10).length;
 
         setMetrics({
@@ -51,26 +76,38 @@ const ReportsPage = () => {
     };
 
     const generateChartsData = (data) => {
-        // 1. Products Added Over Time (Mocking "Sales Report" visual)
-        // Group by date (YYYY-MM-DD)
+        // 1. Products Added Over Time
         const timeMap = {};
+        
         data.forEach(p => {
-            const date = new Date(p.created_at).toLocaleDateString();
-            timeMap[date] = (timeMap[date] || 0) + 1;
+            const dateObj = new Date(p.created_at);
+            let key;
+            
+            if (chartView === 'weekly') {
+                // Get the Sunday of the week
+                const day = dateObj.getDay();
+                const diff = dateObj.getDate() - day;
+                const weekStart = new Date(dateObj.setDate(diff));
+                key = `Week of ${weekStart.toLocaleDateString()}`;
+            } else {
+                key = dateObj.toLocaleDateString();
+            }
+            
+            timeMap[key] = (timeMap[key] || 0) + 1;
         });
-        // If not enough data, mock some distribution based on existing items for visualization
-        // or just show what we have. Let's show what we have but sorted.
+
         const timeData = Object.keys(timeMap).map(date => ({
             name: date,
             value: timeMap[date]
-        })).sort((a, b) => new Date(a.name) - new Date(b.name));
+        })).sort((a, b) => {
+            const dateA = a.name.includes('Week of') ? new Date(a.name.replace('Week of ', '')) : new Date(a.name);
+            const dateB = b.name.includes('Week of') ? new Date(b.name.replace('Week of ', '')) : new Date(b.name);
+            return dateA - dateB;
+        });
         
-        // If empty or too few, let's just show the last 7 days with 0 if needed, 
-        // but for now let's stick to real data.
         setProductsOverTime(timeData);
 
-        // 2. Price Distribution (Mocking "Inventory Valuation" Pie Chart)
-        // Ranges: 0-50, 50-100, 100-500, 500+
+        // 2. Price Distribution
         let ranges = { '0-50': 0, '50-100': 0, '100-500': 0, '500+': 0 };
         data.forEach(p => {
             if (p.price <= 50) ranges['0-50'] += (p.price * p.stock);
@@ -86,7 +123,7 @@ const ReportsPage = () => {
         ].filter(d => d.value > 0);
         setPriceDistribution(pieData);
 
-        // 3. Top Stock Levels (Mocking "Stock Movement" visual)
+        // 3. Top Stock Levels
         const sortedByStock = [...data].sort((a, b) => b.stock - a.stock).slice(0, 10);
         const stockData = sortedByStock.map(p => ({
             name: p.name.length > 10 ? p.name.substring(0, 10) + '...' : p.name,
@@ -95,12 +132,28 @@ const ReportsPage = () => {
         setTopStock(stockData);
     };
 
+    const handleExport = () => {
+        window.print();
+    };
+
     const COLORS = ['#137fec', '#22c55e', '#f59e0b', '#ef4444'];
 
     if (loading) return <div style={{ padding: '2rem' }}>Loading reports...</div>;
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            {/* Print Styles */}
+            <style>
+                {`
+                    @media print {
+                        header, aside, .no-print { display: none !important; }
+                        main { padding: 0 !important; overflow: visible !important; }
+                        .print-only { display: block !important; }
+                        body { background-color: white; }
+                    }
+                `}
+            </style>
+
             {/* Header */}
             <header style={{ 
                 position: 'sticky', 
@@ -136,21 +189,24 @@ const ReportsPage = () => {
                             border: '2px solid var(--card-bg)' 
                         }}></span>
                     </button>
-                    <button style={{ 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        height: '40px', 
-                        padding: '0 1rem', 
-                        backgroundColor: 'var(--primary-color)', 
-                        color: 'white', 
-                        fontSize: '0.875rem', 
-                        fontWeight: 'bold', 
-                        borderRadius: '0.5rem', 
-                        border: 'none', 
-                        cursor: 'pointer',
-                        gap: '0.5rem'
-                    }}>
+                    <button 
+                        onClick={handleExport}
+                        style={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'center', 
+                            height: '40px', 
+                            padding: '0 1rem', 
+                            backgroundColor: 'var(--primary-color)', 
+                            color: 'white', 
+                            fontSize: '0.875rem', 
+                            fontWeight: 'bold', 
+                            borderRadius: '0.5rem', 
+                            border: 'none', 
+                            cursor: 'pointer',
+                            gap: '0.5rem'
+                        }}
+                    >
                         <span className="material-symbols-outlined">download</span>
                         <span>Export Reports</span>
                     </button>
@@ -161,7 +217,7 @@ const ReportsPage = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                     
                     {/* Filters */}
-                    <div style={{ 
+                    <div className="no-print" style={{ 
                         padding: '1.5rem', 
                         borderRadius: '0.75rem', 
                         border: '1px solid var(--border-color)', 
@@ -170,46 +226,35 @@ const ReportsPage = () => {
                         flexDirection: 'column', 
                         gap: '1rem' 
                     }}>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-                            <div>
-                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>Date Range</label>
-                                <div style={{ position: 'relative' }}>
-                                    <span className="material-symbols-outlined" style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', fontSize: '20px' }}>calendar_today</span>
-                                    <input type="text" defaultValue="Last 30 Days" style={{ width: '100%', padding: '0.5rem 1rem 0.5rem 2.5rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }} />
-                                </div>
-                            </div>
-                            <div>
-                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>Product Category</label>
-                                <select style={{ width: '100%', padding: '0.5rem 1rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}>
-                                    <option>All Categories</option>
-                                    <option>Electronics</option>
-                                    <option>Office Supplies</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>Supplier</label>
-                                <select style={{ width: '100%', padding: '0.5rem 1rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}>
-                                    <option>All Suppliers</option>
-                                    <option>TechPro Inc.</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <button style={{ 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                gap: '0.5rem', 
-                                padding: '0.5rem 1rem', 
-                                backgroundColor: 'var(--primary-color)', 
-                                color: 'white', 
-                                borderRadius: '0.5rem', 
-                                border: 'none', 
-                                fontWeight: 'bold', 
-                                fontSize: '0.875rem',
-                                cursor: 'pointer'
-                            }}>
-                                <span className="material-symbols-outlined">filter_alt</span>
-                                Apply Filters
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                            <span style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--text-secondary)' }}>Date Range:</span>
+                            <button 
+                                onClick={() => setDateRange(30)}
+                                style={{ 
+                                    padding: '0.5rem 1rem', 
+                                    borderRadius: '0.5rem', 
+                                    border: dateRange === 30 ? '1px solid var(--primary-color)' : '1px solid var(--border-color)', 
+                                    backgroundColor: dateRange === 30 ? 'rgba(19, 127, 236, 0.1)' : 'var(--bg-color)', 
+                                    color: dateRange === 30 ? 'var(--primary-color)' : 'var(--text-color)',
+                                    cursor: 'pointer',
+                                    fontWeight: '500'
+                                }}
+                            >
+                                Last 30 Days
+                            </button>
+                            <button 
+                                onClick={() => setDateRange(15)}
+                                style={{ 
+                                    padding: '0.5rem 1rem', 
+                                    borderRadius: '0.5rem', 
+                                    border: dateRange === 15 ? '1px solid var(--primary-color)' : '1px solid var(--border-color)', 
+                                    backgroundColor: dateRange === 15 ? 'rgba(19, 127, 236, 0.1)' : 'var(--bg-color)', 
+                                    color: dateRange === 15 ? 'var(--primary-color)' : 'var(--text-color)',
+                                    cursor: 'pointer',
+                                    fontWeight: '500'
+                                }}
+                            >
+                                Last 15 Days
                             </button>
                         </div>
                     </div>
@@ -217,13 +262,41 @@ const ReportsPage = () => {
                     {/* Main Charts Grid */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
                         
-                        {/* Products Added Chart (Sales Report replacement) */}
+                        {/* Products Added Chart */}
                         <div style={{ gridColumn: 'span 2', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--text-color)' }}>Products Added Over Time</h3>
-                                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                    <button style={{ padding: '0.25rem 0.75rem', borderRadius: '9999px', backgroundColor: 'rgba(19, 127, 236, 0.1)', color: 'var(--primary-color)', border: 'none', fontSize: '0.875rem', fontWeight: '500' }}>Daily</button>
-                                    <button style={{ padding: '0.25rem 0.75rem', borderRadius: '9999px', backgroundColor: 'transparent', color: 'var(--text-secondary)', border: 'none', fontSize: '0.875rem', fontWeight: '500' }}>Weekly</button>
+                                <div className="no-print" style={{ display: 'flex', gap: '0.5rem' }}>
+                                    <button 
+                                        onClick={() => setChartView('daily')}
+                                        style={{ 
+                                            padding: '0.25rem 0.75rem', 
+                                            borderRadius: '9999px', 
+                                            backgroundColor: chartView === 'daily' ? 'rgba(19, 127, 236, 0.1)' : 'transparent', 
+                                            color: chartView === 'daily' ? 'var(--primary-color)' : 'var(--text-secondary)', 
+                                            border: 'none', 
+                                            fontSize: '0.875rem', 
+                                            fontWeight: '500',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        Daily
+                                    </button>
+                                    <button 
+                                        onClick={() => setChartView('weekly')}
+                                        style={{ 
+                                            padding: '0.25rem 0.75rem', 
+                                            borderRadius: '9999px', 
+                                            backgroundColor: chartView === 'weekly' ? 'rgba(19, 127, 236, 0.1)' : 'transparent', 
+                                            color: chartView === 'weekly' ? 'var(--primary-color)' : 'var(--text-secondary)', 
+                                            border: 'none', 
+                                            fontSize: '0.875rem', 
+                                            fontWeight: '500',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        Weekly
+                                    </button>
                                 </div>
                             </div>
                             <div style={{ height: '300px' }}>
@@ -291,7 +364,7 @@ const ReportsPage = () => {
                     {/* Bottom Charts Grid */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
                         
-                        {/* Stock Levels (Stock Movement replacement) */}
+                        {/* Top Stock Levels */}
                         <div style={{ padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
                             <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--text-color)', marginBottom: '1rem' }}>Top Stock Levels</h3>
                             <div style={{ height: '250px' }}>
@@ -316,7 +389,7 @@ const ReportsPage = () => {
                             </div>
                         </div>
 
-                        {/* Price Distribution (Inventory Valuation replacement) */}
+                        {/* Inventory Value Distribution */}
                         <div style={{ padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
                             <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--text-color)', marginBottom: '1rem' }}>Inventory Value Distribution</h3>
                             <div style={{ height: '250px' }}>
