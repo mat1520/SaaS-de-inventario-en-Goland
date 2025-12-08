@@ -3,13 +3,13 @@ import React from 'react';
 const TermsPage = () => {
     return (
         <div className="container" style={{ padding: '4rem 2rem' }}>
-            <h1 style={{ marginBottom: '2rem' }}>Términos y Condiciones</h1>
+            <h1 style={{ marginBottom: '2rem' }}>Terms and Conditions</h1>
             <div className="card">
-                <p>Bienvenido a SaaS de Inventario. Al usar nuestro servicio, aceptas estos términos.</p>
-                <h3 style={{ marginTop: '1.5rem' }}>1. Uso del Servicio</h3>
-                <p>El servicio se proporciona "tal cual". Nos reservamos el derecho de modificar o suspender el servicio en cualquier momento.</p>
-                <h3 style={{ marginTop: '1.5rem' }}>2. Cuentas de Usuario</h3>
-                <p>Eres responsable de mantener la seguridad de tu cuenta y contraseña.</p>
+                <p>Welcome to Inventify. By using our service, you agree to these terms.</p>
+                <h3 style={{ marginTop: '1.5rem' }}>1. Use of Service</h3>
+                <p>The service is provided "as is". We reserve the right to modify or suspend the service at any time.</p>
+                <h3 style={{ marginTop: '1.5rem' }}>2. User Accounts</h3>
+                <p>You are responsible for maintaining the security of your account and password.</p>
             </div>
         </div>
     );

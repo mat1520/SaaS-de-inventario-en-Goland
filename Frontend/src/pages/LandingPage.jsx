@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import landingImage from '../assets/Langing.png';
 
 const LandingPage = () => {
     return (
@@ -24,7 +25,7 @@ const LandingPage = () => {
                         maxWidth: '900px', 
                         marginTop: '3rem', 
                         aspectRatio: '16/9', 
-                        backgroundImage: 'url("/assets/Landing.png")',
+                        backgroundImage: `url(${landingImage})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         borderRadius: '12px',
@@ -60,11 +61,6 @@ const LandingPage = () => {
                             icon="warehouse" 
                             title="Multi-Warehouse Sync" 
                             desc="Keep your inventory perfectly synchronized." 
-                        />
-                        <FeatureCard 
-                            icon="group" 
-                            title="Supplier Management" 
-                            desc="Manage purchase orders and supplier relationships." 
                         />
                     </div>
                 </div>
