@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
@@ -19,24 +18,23 @@ import SupportPage from './pages/SupportPage';
 function App() {
     return (
         <AuthProvider>
-            <ThemeProvider>
-                <Router>
-                    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-                        <Navbar />
-                        <div style={{ flex: 1 }}>
-                            <Routes>
-                                <Route path="/" element={<LandingPage />} />
-                                <Route path="/login" element={<LoginPage />} />
-                                <Route path="/register" element={<RegisterPage />} />
-                                <Route path="/terms" element={<TermsPage />} />
-                                <Route path="/privacy" element={<PrivacyPage />} />
-                                <Route path="/support" element={<SupportPage />} />
-                                
-                                <Route path="/dashboard" element={
-                                    <PrivateRoute>
-                                        <DashboardPage />
-                                    </PrivateRoute>
-                                } />
+            <Router>
+                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                    <Navbar />
+                    <div style={{ flex: 1 }}>
+                        <Routes>
+                            <Route path="/" element={<LandingPage />} />
+                            <Route path="/login" element={<LoginPage />} />
+                            <Route path="/register" element={<RegisterPage />} />
+                            <Route path="/terms" element={<TermsPage />} />
+                            <Route path="/privacy" element={<PrivacyPage />} />
+                            <Route path="/support" element={<SupportPage />} />
+                            
+                            <Route path="/dashboard" element={
+                                <PrivateRoute>
+                                    <DashboardPage />
+                                </PrivateRoute>
+                            } />
                             <Route path="/products" element={
                                 <PrivateRoute>
                                     <ProductListPage />
@@ -62,7 +60,6 @@ function App() {
                     <Footer />
                 </div>
             </Router>
-            </ThemeProvider>
         </AuthProvider>
     );
 }
